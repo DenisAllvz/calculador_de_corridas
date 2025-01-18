@@ -1,20 +1,25 @@
-def calcular_pagamento(dias, entregas_por_dia, taxa=1.35,diaria=15.0):
-    pagamento_total=0
-    for distancia in entregas_por_dia:
-        total_km = sum(distancia)
-        pagamento_diario = (total_km * taxa)+diaria
-        pagamento_total+=pagamento_diario
-    return pagamento_total
-dias_trabalhados = int(input("Dias trabalhados: "))
+def collect_deliveries_per_day(days_worked):
+    deliveries_per_day = []
+    for dia in range (1, days_worked + 1):
+        print(f"\n {dia}:")
+        deliveries =  input("Distância em cada entrega, separada por espaço: ")
+        deliveries = list(map(float,deliveries.split()))
+        deliveries_per_day.append(deliveries)
+    return deliveries_per_day
 
-entregas_por_dia = []
 
-for dia in range (1, dias_trabalhados + 1):
-    print(f"\n {dia}:")
-    entregas =  input("Distância em cada entrega, separada por espaço: ")
-    entregas = list(map(float,entregas.split()))
-    entregas_por_dia.append(entregas)
+def calculate_total_payment(deliveries_day, rate=1.35,daily=15.0):
+    total_payment=0
+    for distance in deliveries_day:
+        total_km = sum(distance)
+        daily_payment = (total_km * rate)+daily
+        total_payment+=daily_payment
+    return total_payment
 
-valor_a_pagar = calcular_pagamento(dias_trabalhados, entregas_por_dia)
+days_worked = int(input("Dias trabalhados: "))
 
-print(f"O valor total a ser pago é: R$ {valor_a_pagar:.2f}")
+days = collect_deliveries_per_day(days_worked)
+
+amount_to_pay = calculate_total_payment(days)
+
+print(f"O valor total a ser pago é: R$ {amount_to_pay:.2f}")
